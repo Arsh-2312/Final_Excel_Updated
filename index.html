@@ -48,6 +48,9 @@
   <button onclick="saveEntry()">Save Entry</button>
 </div>
 
+<label>Output File Name:</label>
+<input type="text" id="fileNameInput" placeholder="e.g., Field_Data.xlsx">
+
 <button onclick="downloadExcel()">Download Excel File</button>
 
 <script>
@@ -202,7 +205,13 @@ function saveEntry() {
 }
 
 function downloadExcel() {
-  XLSX.writeFile(workbook, "Updated_Field_Data.xlsx");
+  let filename = document.getElementById("fileNameInput").value.trim();
+  if (!filename) {
+    filename = "Updated_Field_Data.xlsx";
+  } else if (!filename.endsWith(".xlsx")) {
+    filename += ".xlsx";
+  }
+  XLSX.writeFile(workbook, filename);
 }
 </script>
 </body>
